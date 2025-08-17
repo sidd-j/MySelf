@@ -348,7 +348,7 @@ function populateSocialLinks() {
         { name: 'GitHub', url: contact.github, icon: 'GH' },
         { name: 'LinkedIn', url: contact.linkedin, icon: 'LI' },
         { name: 'Twitter', url: contact.twitter, icon: 'TW' },
-        { name: 'Email', url: `mailto:${contact.email}`, icon: '@' }
+        { name: 'Email', url: `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}`, icon: '@' }
     ];
 
     socialLinks.innerHTML = socialPlatforms.map(platform => `
@@ -467,7 +467,7 @@ function initializeApp() {
             portfolioData.developer.name,
             'Game Developer',
             'Unity Expert',
-            'RPG Creator',
+            'Game Designer',
             'App Developer'
         ], 2000);
     }
