@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            color: #ffd700;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #1e1e1e;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card .info {
+            padding: 12px 15px;
+        }
+
+        .card .info h3 {
+            margin: 0 0 5px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .card .info p {
+            font-size: 15px;
+            color: #bbb;
+            margin: 0;
+        }
+
+        /* Fullscreen Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .modal:target {
+            display: flex;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 35px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Sid</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <button class="nav-toggle" id="mobile-menu" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+    <h1>My Project Gallery</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Fullscreen Modal -->
+    <div id="modal" class="modal">
+        <a href="#" class="close-btn">&times;</a>
+        <img id="modal-img" src="" alt="Fullscreen">
+    </div>
+
+    <script>
+        // List all your images manually (since browser can't auto-read folder)
+        const projects = [
+            { image: "./Photos/Demo1.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/WOR2.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/WOR3.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/WOR4.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/f.jpg", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/Forest.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/House3.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/Suzume.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "./Photos/unityGame.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" },
+            { image: "../Photos/ScyFI.png", title: "Whispers of Ruins", desc: "Unity Adventure Game" }
+        ];
+
+        const gallery = document.getElementById("gallery");
+        const modal = document.getElementById("modal");
+        const modalImg = document.getElementById("modal-img");
+
+        projects.forEach((p, index) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+        <img src="${p.image}" alt="${p.title}">
+        <div class="info">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+        </div>
+      `;
+            card.querySelector("img").addEventListener("click", () => {
+                modal.style.display = "flex";
+                modalImg.src = p.image;
+            });
+            gallery.appendChild(card);
+        });
+
+        // Close modal on click outside image
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal || e.target.classList.contains("close-btn")) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

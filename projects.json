@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Whispers of Ruins",
+        "description": "A single-player RPG built in Unity featuring dragons, NPC AI, and immersive systems.",
+        "image": "./Photos/StaySync1.png"
+    },
+    {
+        "name": "StaySync",
+        "description": "Society management system with QR-based attendance, real-time announcements, and visitor notifications.",
+        "image": "./Photos/Laundry.png"
+    },
+    {
+        "name": "Laundry App",
+        "description": "Flutter app for laundry shop owners & customers with Node.js backend for order management.",
+        "image": "./Photos/laundry-app.png"
+    }
+]
