@@ -17,8 +17,7 @@ const portfolioData = {
         "contact": {
             "email": "jsiddhesh40@gmail.com",
             "github": "https://github.com/sidd-j",
-            "linkedin": "https://linkedin.com/in/siddhesh-jadhav",
-            "twitter": ""
+            "linkedin": "www.linkedin.com/in/siddheshjadhavdeepak",
         }
     },
     "projects": [
