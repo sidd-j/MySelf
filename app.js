@@ -365,7 +365,7 @@ form && form.addEventListener('submit', e => {
 async function init() {
     let data;
     try {
-        const res = await fetch('data.json');
+        const res = await fetch('Data.json');
         if (!res.ok) throw new Error('fetch failed');
         data = await res.json();
     } catch {
