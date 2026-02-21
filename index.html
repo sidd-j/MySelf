@@ -2,150 +2,186 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sid - Game & App Developer</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Siddhesh Jadhav — Developer" />
+    <title>Siddhesh Jadhav — Developer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
-        rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=Manrope:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="nav" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">Sid</span>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <button class="nav-toggle" id="mobile-menu" aria-label="Toggle navigation menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="stars-bg"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="typing-text" id="typing-text"></span>
-                <span class="cursor">|</span>
-            </h1>
-            <p class="hero-subtitle">Game & App Developer</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn--primary">View Projects</a>
-                <a href="#contact" class="btn btn--outline">Contact Me</a>
+    <!-- HEADER -->
+    <header id="hdr">
+        <div class="nav-inner">
+            <a href="#top" class="brand">&lt;sj /&gt;</a>
+            <nav id="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#stack">Stack</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-right">
+                <a id="nav-gh" href="#" target="_blank" class="gh-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                    </svg>
+                    GitHub
+                </a>
+                <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
             </div>
         </div>
-        <div class="hero-particles" id="particles"></div>
-    </section>
+        <div class="mob-nav" id="mob-nav">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#stack">Stack</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-description" id="about-description"></p>
+    <!-- HERO -->
+    <section id="top" class="hero">
+        <div class="hero-inner wrap">
+            <div class="hero-text">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    <span id="hero-status"></span>
+                    <span class="eyebrow-sep">·</span>
+                    <span id="hero-loc"></span>
                 </div>
-                <div class="skills-container">
-                    <h3 class="skills-title">Skills & Expertise</h3>
-                    <div class="skills-grid" id="skills-grid">
-                        <!-- Skills will be populated by JavaScript -->
-                    </div>
+                <h1 id="hero-h1"></h1>
+                <p class="hero-desc" id="hero-desc"></p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn-primary">See My Projects</a>
+                    <a id="hero-gh-btn" href="#" target="_blank" class="btn-ghost">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                        </svg>
+                        @sidd-j
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="projects-grid" id="projects-grid">
-                <!-- Projects will be populated by JavaScript -->
-            </div>
-            <div class="more-works-container fade-in">
-                <button id="more-works-btn" class="more-works-btn">
-                    Explore More Works →
-                </button>
-            </div>
-
-            <script>
-                document.getElementById('more-works-btn').addEventListener('click', () => {
-                    window.location.href = "gallery.html";
-                });
-            </script>
-
-
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Build Something Amazing</h3>
-                    <p>Ready to bring your game ideas to life? I'm always excited to work on new projects and
-                        collaborate with fellow developers.</p>
-                    <div class="social-links" id="social-links">
-                        <!-- Social links will be populated by JavaScript -->
+            <div class="hero-code-col">
+                <div class="code-card">
+                    <div class="cc-bar">
+                        <span class="cc-dot r"></span><span class="cc-dot y"></span><span class="cc-dot g"></span>
+                        <span class="cc-name">siddhesh.json</span>
                     </div>
+                    <pre class="cc-body" id="code-card"></pre>
                 </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label class="form-label" for="name">Name</label>
-                        <input type="text" class="form-control" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
+            </div>
+        </div>
+        <div class="stats-strip">
+            <div class="wrap stats-inner" id="stats-strip"></div>
+        </div>
+        <div class="marquee-outer">
+            <div class="marquee-track" id="marquee"></div>
+        </div>
+    </section>
 
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="message">Message</label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
-                </form>
+    <!-- ABOUT -->
+    <section id="about" class="section about-sec">
+        <div class="wrap">
+            <p class="sec-kicker">About</p>
+            <div class="about-grid">
+                <div class="about-left">
+                    <h2>I write code<br />that <em>ships</em>.</h2>
+                    <p id="about-p1"></p>
+                    <p id="about-p2"></p>
+                    <div class="about-links" id="about-links"></div>
+                </div>
+                <div class="about-right" id="exp-list"></div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- PROJECTS -->
+    <section id="projects" class="section projects-sec">
+        <div class="wrap">
+            <p class="sec-kicker">Projects</p>
+            <div class="projects-head">
+                <h2>Things I've shipped.</h2>
+                <div class="proj-filters" id="proj-filters"></div>
+            </div>
+            <div class="featured-row" id="featured-row"></div>
+            <div class="small-grid" id="small-grid"></div>
+            <div class="proj-footer">
+                <a id="all-gh" href="#" target="_blank" class="btn-ghost">All Projects on GitHub ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="section stack-sec">
+        <div class="wrap">
+            <p class="sec-kicker">Tech Stack</p>
+            <h2>What I build <em>with</em>.</h2>
+            <div class="stack-grid" id="stack-grid"></div>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section ach-sec">
+        <div class="wrap">
+            <p class="sec-kicker">Recognition</p>
+            <div class="ach-row" id="ach-row"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-sec">
+        <div class="wrap contact-grid">
+            <div class="contact-left">
+                <p class="sec-kicker">Contact</p>
+                <h2>Let's build<br /><em>something.</em></h2>
+                <p>Got a project idea, an open role, or just want to talk code? My inbox is open.</p>
+                <div class="contact-links" id="contact-links"></div>
+            </div>
+            <form class="contact-form" id="contact-form">
+                <div class="field"><label for="fn">Name</label><input id="fn" type="text" placeholder="Your name"
+                        required /></div>
+                <div class="field"><label for="fe">Email</label><input id="fe" type="email"
+                        placeholder="you@example.com" required /></div>
+                <div class="field"><label for="fm">Message</label><textarea id="fm" rows="5"
+                        placeholder="What are you building?" required></textarea></div>
+                <button type="submit" class="btn-primary full" id="sbtn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Sid. All rights reserved.</p>
+        <div class="wrap footer-row">
+            <span class="footer-brand">&lt;sj /&gt;</span>
+            <span class="footer-copy" id="footer-copy"></span>
+            <div class="footer-links" id="footer-links"></div>
         </div>
     </footer>
+
+    <!-- PROJECT MODAL -->
+    <div class="modal-bg" id="modal-bg">
+        <div class="modal" id="modal" role="dialog" aria-modal="true">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div class="modal-img-wrap">
+                <img id="modal-img" src="" alt="" loading="lazy" />
+                <div class="modal-img-placeholder" id="modal-placeholder"></div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-tags" id="modal-tags"></div>
+                <h3 id="modal-title"></h3>
+                <p class="modal-subtitle" id="modal-subtitle"></p>
+                <p class="modal-desc" id="modal-desc"></p>
+                <div class="modal-btns" id="modal-btns"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

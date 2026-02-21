@@ -1,0 +1,255 @@
+{
+    "personal": {
+        "name": "Siddhesh Jadhav",
+        "tagline": "I build games, apps & tools.",
+        "description": "Full-stack developer specialising in Unity 3D games, Flutter apps, and Node.js backends. I love turning ideas into shipped products.",
+        "location": "Mumbai, India",
+        "email": "jsiddhesh40@gmail.com",
+        "phone": "+91 77383 81600",
+        "github": "https://github.com/sidd-j",
+        "linkedin": "https://www.linkedin.com/in/siddheshjadhavdeepak/",
+        "cgpa": "8.4",
+        "college": "Patkar Varde College, Mumbai",
+        "degree": "B.Sc. Computer Science",
+        "status": "open to work",
+        "avatar": "images/avatar.jpg"
+    },
+    "stats": [
+        {
+            "value": "6+",
+            "label": "Projects Shipped"
+        },
+        {
+            "value": "2",
+            "label": "Years Building"
+        },
+        {
+            "value": "8.4",
+            "label": "CGPA"
+        },
+        {
+            "value": "1st",
+            "label": "Hackathon Place"
+        }
+    ],
+    "experience": [
+        {
+            "role": "QA Engineer",
+            "company": "Rendered Ideas",
+            "period": "Mar 2025 – Present",
+            "current": true,
+            "points": [
+                "Tested games across Android, iOS, Steam, Roku & Amazon — deep platform knowledge that makes me a better developer.",
+                "Created and executed 120+ structured test cases for multiplayer systems, cloud save & subscription flows.",
+                "Conducted BVT, performance testing across 35+ device models."
+            ],
+            "tags": [
+                "Selenium",
+                "Appium",
+                "Mantis",
+                "Postman"
+            ]
+        },
+        {
+            "role": "Backend Developer",
+            "company": "Prostar Technologies",
+            "period": "May 2024 – Jan 2025",
+            "current": false,
+            "points": [
+                "Built a full-stack laundry app for an early-stage startup from scratch to production.",
+                "Designed REST APIs with Node.js & Express, PostgreSQL schema, and Flutter mobile client."
+            ],
+            "tags": [
+                "Node.js",
+                "PostgreSQL",
+                "Flutter",
+                "Express.js"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "id": "dungeon-conquerors",
+            "title": "Dungeon Conquerors",
+            "subtitle": "3D Multiplayer RPG",
+            "description": "A 3D multiplayer RPG with real-time combat, character customisation, and interactive environments. Full multiplayer netcode built with Photon PUN — players join from anywhere in real time.",
+            "image": "images/unityGame.png",
+            "tags": [
+                "Unity 3D",
+                "C#",
+                "Photon PUN",
+                "Blender"
+            ],
+            "category": "game",
+            "github": "https://github.com/sidd-j",
+            "live": "",
+            "featured": true,
+            "color": "#7c3aed"
+        },
+        {
+            "id": "whispers-of-ruins",
+            "title": "Whispers of Ruins",
+            "subtitle": "Single-Player RPG",
+            "description": "A single-player RPG where you defeat four dragons to uncover the truth. Custom NPC state-machine AI, day-night cycle, dialogue & trade systems, spatial audio — every system built from scratch.",
+            "image": "images/Demo1.png",
+            "tags": [
+                "Unity 3D",
+                "C#",
+                "NPC AI",
+                "Blender"
+            ],
+            "category": "game",
+            "github": "https://github.com/sidd-j/WhispersOfRuins",
+            "live": "",
+            "featured": true,
+            "color": "#0891b2"
+        },
+        {
+            "id": "staysync",
+            "title": "StaySync",
+            "subtitle": "Society Management App",
+            "description": "Full-stack society management system — staff tracking, visitor management, real-time notifications & maintenance scheduling. Production-ready backend with SQLite caching layer.",
+            "image": "images/SS2.png",
+            "tags": [
+                "Flutter",
+                "Node.js",
+                "PostgreSQL",
+                "Socket.io"
+            ],
+            "category": "app",
+            "github": "https://github.com/sidd-j/StaySync",
+            "live": "",
+            "featured": true,
+            "color": "#059669"
+        },
+        {
+            "id": "ubuntu-fest",
+            "title": "Ubuntu Fest Website",
+            "subtitle": "Event Registration Platform",
+            "description": "Live event registration platform for the college annual fest with Razorpay payment gateway integration for secure ticket purchases.",
+            "image": "",
+            "tags": [
+                "React Native",
+                "Node.js",
+                "Firebase",
+                "Razorpay"
+            ],
+            "category": "web",
+            "github": "https://github.com/sidd-j",
+            "live": "",
+            "featured": false,
+            "color": "#d97706"
+        },
+        {
+            "id": "notifyme",
+            "title": "NotifyMe",
+            "subtitle": "Real-Time Notification System",
+            "description": "Real-time broadcast notification system supporting individual, group, and broadcast messaging with low-latency WebSocket communication.",
+            "image": "images/SS2.png",
+            "tags": [
+                "Node.js",
+                "Socket.io",
+                "Flutter",
+                "Firebase"
+            ],
+            "category": "app",
+            "github": "https://github.com/sidd-j/notification-system",
+            "live": "",
+            "featured": false,
+            "color": "#e11d48"
+        },
+        {
+            "id": "newsstream",
+            "title": "NewsStream",
+            "subtitle": "Android News App",
+            "description": "Android news app with Firebase Authentication and live REST API news feed integration. Clean, fast, performant across all Android versions.",
+            "image": "images/newsstream.jpg",
+            "tags": [
+                "Java",
+                "Firebase",
+                "REST API",
+                "Android"
+            ],
+            "category": "app",
+            "github": "https://github.com/sidd-j",
+            "live": "",
+            "featured": false,
+            "color": "#0369a1"
+        }
+    ],
+    "stack": [
+        {
+            "category": "Game Dev",
+            "icon": "🎮",
+            "items": [
+                "Unity 3D",
+                "C#",
+                "Photon PUN",
+                "Blender",
+                "NPC AI / State Machines",
+                "Unreal Engine"
+            ]
+        },
+        {
+            "category": "Mobile & Frontend",
+            "icon": "📱",
+            "items": [
+                "Flutter & Dart",
+                "React.js / React Native",
+                "JavaScript / HTML / CSS",
+                "Android (Java / Kotlin)"
+            ]
+        },
+        {
+            "category": "Backend & Database",
+            "icon": "⚙️",
+            "items": [
+                "Node.js & Express",
+                "PostgreSQL · MySQL · SQLite",
+                "MongoDB · Firebase",
+                "Socket.io",
+                "REST API Design · AWS"
+            ]
+        },
+        {
+            "category": "AI & Data",
+            "icon": "🤖",
+            "items": [
+                "Python",
+                "TensorFlow · PyTorch",
+                "YOLO v5/v8",
+                "Scikit-learn · Pandas",
+                "OpenAI GPT Integration"
+            ]
+        }
+    ],
+    "achievements": [
+        {
+            "emoji": "🥇",
+            "title": "1st Place",
+            "detail": "MVM Expogen 2024–25 Project Exhibition"
+        },
+        {
+            "emoji": "🎯",
+            "title": "Finalist",
+            "detail": "SDBI TechJam 2024 — Hack the Metrics"
+        },
+        {
+            "emoji": "⚡",
+            "title": "Top 5",
+            "detail": "Clash of Code Programming Competition"
+        },
+        {
+            "emoji": "🎓",
+            "title": "CGPA 8.4",
+            "detail": "B.Sc. Computer Science, Patkar Varde College"
+        }
+    ],
+    "certifications": [
+        "Python Programming — DevLearn & CMS IT Services",
+        "AI Workshop — IIT Mumbai",
+        "Android App Development — Multicon TCET",
+        "GitHub Certification — Spoken Tutorial",
+        "Research in IT: IoT — RUSA International Webinar"
+    ]
+}

@@ -1,572 +1,422 @@
-// Portfolio data
-const portfolioData = {
-    "developer": {
-        "name": "Siddhesh Deepak Jadhav",
-        "title": "Game & App Developer",
-        "description": "Unity game developer and software engineer with experience in gameplay systems, NPC AI, horror survival mechanics, and mobile app development. Skilled in building immersive single-player experiences, real-time notification systems, and scalable API solutions.",
-        "skills": [
-            { "name": "Unity 3D", "level": 90 },
-            { "name": "C# Programming", "level": 92 },
-            { "name": "Python", "level": 85 },
-            { "name": "Game Design", "level": 88 },
-            { "name": "Blender (3D Modeling)", "level": 80 },
-            { "name": "Flutter & Dart", "level": 82 },
-            { "name": "Node.js & Express", "level": 82 },
-            { "name": "PostgreSQL / SQLite", "level": 78 }
-        ],
-        "contact": {
-            "email": "jsiddhesh40@gmail.com",
-            "github": "https://github.com/sidd-j",
-            "linkedin": "www.linkedin.com/in/siddheshjadhavdeepak",
-        }
-    },
-    "projects": [
-        {
-            "name": "Whispers of Ruins",
-            "description": "A single-player RPG built in Unity where players must defeat four dragons to uncover the truth. Features NPC AI, dynamic day-night cycle, dialogue & trade systems, and immersive sound management.",
-            "image": "./Photos/Demo1.png",
-            "link": "https://github.com/sidd-j/WhispersOfRuins"
-        },
-        {
-            "name": "StaySync",
-            "description": "A society management system built with Node.js & Express. Includes QR-based attendance, user management, visitor notifications, and real-time announcements using Socket.io, with SQLite caching.",
-            "image": "./Photos/SS2.png",
+/* =====================================================
+   app.js — reads data.json, renders entire portfolio
+===================================================== */
 
-            "link": "https://github.com/sidd-j/StaySync"
-        },
-        {
-            "name": "Laundry App (Prostar Technologies)",
-            "description": "Developed as a Flutter freelancer for Prostar Technologies. A mobile app where shop owners register their shops and customers place orders. Backend built with Node.js and PostgreSQL for order management.",
-            "image": "./Photos/Laundry.jpg",
-            "link": "https://github.com/sidd-j/laundry-app"
-        },
-        {
-            "name": "Custom Node.js Notification System",
-            "description": "Real-time notification system using Node.js and Socket.io. Handles announcements, maintenance payment alerts, and visitor notifications (e.g., deliveries).",
-            "image": "./Photos/StaySync1.png",
-            "link": "https://github.com/sidd-j/notification-system"
-        },
-        {
-            "name": "Unity Games",
-            "description": "Multiple Unity projects including a 3D horror survival game, NPC state machine AI systems, RPG mechanics, dialogue/trade interactions, and a legal chess moves calculator using OOP and design patterns.",
-            "image": "./Photos/unityGame.png",
+const CAT_ICONS = { game: '🎮', app: '📱', web: '🌐' };
+const CAT_LABELS = { game: 'Game', app: 'App', web: 'Web' };
 
-            "link": "https://github.com/sidd-j"
-        },
-
-
-    ],
-    "experience": [
-        {
-            "role": "Game Tester",
-            "company": "Rendered Ideas",
-            "duration": "6 months",
-            "description": "Tested mobile games, documented bugs, ensured quality assurance, and provided feedback to improve gameplay mechanics and performance."
-        },
-        {
-            "role": "Flutter Freelancer",
-            "company": "Prostar Technologies",
-            "duration": "9 months",
-            "description": "Developed and delivered a production-ready Laundry App with Flutter and Node.js backend. Managed order workflows and shop owner registration system."
-        }
-    ]
-};
-
-
-
-// DOM Elements
-let navbar, mobileMenu, navMenu, typingText, particlesContainer;
-let aboutDescription, skillsGrid, projectsGrid, socialLinks;
-
-// Initialize DOM elements
-function initializeElements() {
-    navbar = document.getElementById('navbar');
-    mobileMenu = document.getElementById('mobile-menu');
-    navMenu = document.getElementById('nav-menu');
-    typingText = document.getElementById('typing-text');
-    particlesContainer = document.getElementById('particles');
-    aboutDescription = document.getElementById('about-description');
-    skillsGrid = document.getElementById('skills-grid');
-    projectsGrid = document.getElementById('projects-grid');
-    socialLinks = document.getElementById('social-links');
+/* ── Placeholder image generator using canvas ── */
+function makePlaceholderSVG(title, color = '#1c1c21') {
+    const icon = CAT_ICONS[color] || '⬡';
+    return `data:image/svg+xml,${encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="450">
+      <rect width="800" height="450" fill="${color}22"/>
+      <rect width="800" height="450" fill="url(#g)"/>
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#0d0d0f" stop-opacity="0.9"/>
+        </linearGradient>
+      </defs>
+      <text x="400" y="200" text-anchor="middle" font-size="72" opacity="0.25">${icon}</text>
+      <text x="400" y="270" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#ffffff" opacity="0.5">${title}</text>
+    </svg>
+  `)}`;
 }
 
-// Typing Animation
-class TypeWriter {
-    constructor(element, words, wait = 3000) {
-        this.element = element;
-        this.words = words;
-        this.wait = parseInt(wait, 10);
-        this.wordIndex = 0;
-        this.txt = '';
-        this.isDeleting = false;
-        this.type();
-    }
-
-
-    type() {
-        const current = this.wordIndex % this.words.length;
-        const fullTxt = this.words[current];
-
-        if (this.isDeleting) {
-            this.txt = fullTxt.substring(0, this.txt.length - 1);
-        } else {
-            this.txt = fullTxt.substring(0, this.txt.length + 1);
-        }
-
-        this.element.textContent = this.txt;
-
-        let typeSpeed = 100;
-        if (this.isDeleting) typeSpeed /= 2;
-
-        if (!this.isDeleting && this.txt === fullTxt) {
-            typeSpeed = this.wait;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
-            this.isDeleting = false;
-            this.wordIndex++;
-            typeSpeed = 500;
-        }
-
-        setTimeout(() => this.type(), typeSpeed);
-    }
+/* ── Escape HTML ── */
+function esc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Navigate to "more works" page
-function setupMoreWorksButton() {
-    const moreWorksBtn = document.getElementById('more-works-btn');
-    if (moreWorksBtn) {
-        moreWorksBtn.addEventListener('click', () => {
-            window.location.href = "gallery.html";
-        });
-    }
+/* ── Tag pills ── */
+function renderTags(tags, cls = '') {
+    return tags.map(t => `<span class="${cls}">${esc(t)}</span>`).join('');
 }
 
-// Load projects into gallery
-async function loadGallery() {
-    try {
-        const response = await fetch("projects.json");
-        const projects = await response.json();
-        const gallery = document.getElementById("gallery");
+/* =====================================================
+   RENDER FUNCTIONS
+===================================================== */
 
-        projects.forEach(proj => {
-            const card = document.createElement("div");
-            card.classList.add("project-card");
-
-            card.innerHTML = `
-          <img src="${proj.image}" alt="${proj.name}">
-          <h3>${proj.name}</h3>
-          <p>${proj.description}</p>
-          <a href="${proj.link}" target="_blank">View Project</a>
-        `;
-
-            gallery.appendChild(card);
-        });
-    } catch (error) {
-        console.error("Error loading projects:", error);
-    }
+function renderNav(p) {
+    document.getElementById('nav-gh').href = p.github;
 }
 
-// Initialize gallery if on gallery.html
-if (document.getElementById("gallery")) {
-    loadGallery();
+function renderHero(p) {
+    document.getElementById('hero-status').textContent = p.status;
+    document.getElementById('hero-loc').textContent = p.location;
+    document.getElementById('hero-gh-btn').href = p.github;
+
+    // Headline with gradient on key words
+    const parts = p.tagline.split(',');
+    document.getElementById('hero-h1').innerHTML =
+        `I build<br/><span class="grad">${esc(parts[0].replace('I build', '').trim())}</span><br/>&amp; tools.`;
+
+    document.getElementById('hero-desc').innerHTML =
+        `Full-stack developer specialising in <strong>Unity 3D games</strong>,
+     <strong>Flutter apps</strong>, and <strong>Node.js backends</strong>.
+     I love turning ideas into shipped products.`;
 }
 
-// Particle System
-function createParticles() {
-    if (!particlesContainer) return;
-
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            createParticle();
-        }, i * 100);
-    }
-
-    setInterval(createParticle, 300);
-}
-
-function createParticle() {
-    if (!particlesContainer) return;
-
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 6 + 's';
-    particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-
-    particlesContainer.appendChild(particle);
-
-    setTimeout(() => {
-        if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
-        }
-    }, 6000);
-}
-
-// Mobile Menu Toggle - Fixed functionality
-function toggleMobileMenu() {
-    if (!mobileMenu || !navMenu) return;
-
-    mobileMenu.classList.toggle('active');
-    navMenu.classList.toggle('active');
-
-    // Prevent body scroll when menu is open
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
-}
-
-// Smooth Scrolling - Enhanced
-function setupSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-
-                // Update active nav link
-                updateActiveNavLink(targetId);
-            }
-
-            // Close mobile menu if open
-            if (navMenu && navMenu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
-        });
-    });
-}
-
-// Update active navigation link
-function updateActiveNavLink(targetId) {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === targetId) {
-            link.classList.add('active');
-        }
-    });
-}
-
-// Navbar Scroll Effect
-function handleNavbarScroll() {
-    if (!navbar) return;
-
-    if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(10, 10, 15, 0.98)';
-        navbar.style.backdropFilter = 'blur(20px)';
-    } else {
-        navbar.style.background = 'rgba(10, 10, 15, 0.95)';
-        navbar.style.backdropFilter = 'blur(10px)';
-    }
-}
-
-// Populate About Section
-function populateAboutSection() {
-    if (!aboutDescription) return;
-
-    const { description } = portfolioData.developer;
-    aboutDescription.textContent = description;
-}
-
-// Populate Skills Section
-function populateSkillsSection() {
-    if (!skillsGrid) return;
-
-    const { skills } = portfolioData.developer;
-
-    skillsGrid.innerHTML = skills.map(skill => `
-        <div class="skill-item fade-in">
-            <div>
-                <div class="skill-name">${skill.name}</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-level="${skill.level}"></div>
-                </div>
-            </div>
-            <div class="skill-level">${skill.level}%</div>
-        </div>
-    `).join('');
-}
-
-// Animate Skill Bars
-function animateSkillBars() {
-    const skillBars = document.querySelectorAll('.skill-progress');
-    skillBars.forEach((bar, index) => {
-        const level = bar.getAttribute('data-level');
-        setTimeout(() => {
-            bar.style.width = level + '%';
-        }, index * 200 + 500);
-    });
-}
-
-// Populate Projects Section - Fixed links functionality
-function populateProjectsSection() {
-    if (!projectsGrid) return;
-
-    const { projects } = portfolioData;
-
-    projectsGrid.innerHTML = projects.map(project => `
-        <div class="project-card fade-in" data-link="${project.link}">
-            <img src="${project.image}" alt="${project.name}" class="project-image" loading="lazy">
-            <div class="project-content">
-                <h3 class="project-name">${project.name}</h3>
-                <p class="project-description">${project.description}</p>
-                <a href="${project.link}" class="project-link" target="_blank" rel="noopener noreferrer">
-                    View Project →
-                </a>
-            </div>
-        </div>
-    `).join('');
-
-    // Add click handlers for project cards
-    setTimeout(() => {
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', function (e) {
-                // Don't trigger if clicking the project link directly
-                if (e.target.classList.contains('project-link')) {
-                    return;
-                }
-
-                const link = this.getAttribute('data-link');
-                if (link) {
-                    window.open(link, '_blank', 'noopener,noreferrer');
-                }
-            });
-        });
-    }, 100);
-}
-
-// Populate Social Links
-function populateSocialLinks() {
-    if (!socialLinks) return;
-
-    const { contact } = portfolioData.developer;
-    const socialPlatforms = [
-        { name: 'GitHub', url: contact.github, icon: 'GH' },
-        { name: 'LinkedIn', url: contact.linkedin, icon: 'LI' },
-        { name: 'Twitter', url: contact.twitter, icon: 'TW' },
-        { name: 'Email', url: `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}`, icon: '@' }
+function renderCodeCard(p) {
+    const lines = [
+        [`{`, 't-b'],
+        [`  <span class="t-k">"name"</span><span class="t-p">:</span>     <span class="t-s">"${esc(p.name)}"</span><span class="t-p">,</span>`, ''],
+        [`  <span class="t-k">"role"</span><span class="t-p">:</span>     <span class="t-s">"Developer"</span><span class="t-p">,</span>`, ''],
+        [`  <span class="t-k">"location"</span><span class="t-p">:</span> <span class="t-s">"${esc(p.location)}"</span><span class="t-p">,</span>`, ''],
+        [`  <span class="t-k">"cgpa"</span><span class="t-p">:</span>     <span class="t-n">${esc(p.cgpa)}</span><span class="t-p">,</span>`, ''],
+        [`  <span class="t-k">"focus"</span><span class="t-p">:</span> <span class="t-b">[</span>`, ''],
+        [`    <span class="t-s">"Game Dev"</span><span class="t-p">,</span>`, ''],
+        [`    <span class="t-s">"Mobile Apps"</span><span class="t-p">,</span>`, ''],
+        [`    <span class="t-s">"Backend APIs"</span>`, ''],
+        [`  <span class="t-b">]</span><span class="t-p">,</span>`, ''],
+        [`  <span class="t-k">"status"</span><span class="t-p">:</span>   <span class="t-s">"${esc(p.status)}"</span> <span class="cursor-blink">▌</span>`, ''],
+        [`}`, 't-b'],
     ];
-
-    socialLinks.innerHTML = socialPlatforms.map(platform => `
-        <a href="${platform.url}" class="social-link" target="_blank" rel="noopener noreferrer" title="${platform.name}">
-            ${platform.icon}
-        </a>
-    `).join('');
+    document.getElementById('code-card').innerHTML =
+        lines.map(([html, cls]) => cls ? `<span class="${cls}">${html}</span>` : html).join('\n');
 }
 
-// Intersection Observer for Animations
-function setupScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+function renderStats(stats) {
+    const el = document.getElementById('stats-strip');
+    el.innerHTML = stats.map((s, i) =>
+        `${i > 0 ? '<div class="stat-sep"></div>' : ''}
+     <div class="stat-item reveal">
+       <span class="stat-val">${esc(s.value)}</span>
+       <span class="stat-lbl">${esc(s.label)}</span>
+     </div>`
+    ).join('');
+}
+
+function renderMarquee(stack) {
+    const items = stack.flatMap(s => s.items);
+    // Duplicate for seamless loop
+    const all = [...items, ...items];
+    document.getElementById('marquee').innerHTML =
+        all.map(i => `<span>${esc(i)}</span><span>·</span>`).join('');
+}
+
+function renderAbout(p) {
+    document.getElementById('about-p1').innerHTML =
+        `I'm a <strong>Computer Science student (CGPA ${esc(p.cgpa)})</strong> at ${esc(p.college)},
+     with hands-on experience building production apps and games.
+     I work across the full stack — from pixel-perfect UIs to robust backends and multiplayer game systems.`;
+    document.getElementById('about-p2').innerHTML =
+        `Outside of code I tinker with 3D modelling in Blender, explore AI tools, and compete in hackathons —
+     <strong>1st place at MVM Expogen 2024–25</strong> and finalist at multiple competitions.`;
+    document.getElementById('about-links').innerHTML = `
+    <a href="${esc(p.github)}"   target="_blank">GitHub ↗</a>
+    <a href="${esc(p.linkedin)}" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:${esc(p.email)}">Email ↗</a>`;
+}
+
+function renderExperience(exp) {
+    document.getElementById('exp-list').innerHTML = exp.map(e => `
+    <div class="exp-card reveal">
+      <div class="exp-card-header">
+        <div>
+          <span class="exp-role">${esc(e.role)}</span>
+          <span class="exp-co">${esc(e.company)}</span>
+          ${e.current ? '<span class="exp-current">● Current</span>' : ''}
+        </div>
+        <span class="exp-period">${esc(e.period)}</span>
+      </div>
+      <ul class="exp-points">
+        ${e.points.map(pt => `<li>${esc(pt).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`).join('')}
+      </ul>
+      <div class="exp-tags">${renderTags(e.tags)}</div>
+    </div>`
+    ).join('');
+}
+
+/* ── Projects ── */
+let allProjects = [];
+
+function renderProjects(projects) {
+    allProjects = projects;
+    renderFeatured(projects);
+    renderSmall(projects);
+}
+
+function imgEl(proj, cls = '') {
+    const placeholder = makePlaceholderSVG(proj.title, proj.color || '#1c1c21');
+    return `
+    <img
+      src="${esc(proj.image)}"
+      alt="${esc(proj.title)}"
+      loading="lazy"
+      class="${cls}"
+      onerror="this.onerror=null;this.src='${placeholder}'"
+    />`;
+}
+
+function renderFeatured(projects) {
+    const featured = projects.filter(p => p.featured);
+    document.getElementById('featured-row').innerHTML = featured.map(p => `
+    <div class="proj-feat reveal" data-id="${esc(p.id)}" data-cat="${esc(p.category)}">
+      <div class="proj-feat-img">
+        ${imgEl(p)}
+        <div class="proj-img-placeholder">
+          <span class="ph-icon">${CAT_ICONS[p.category] || '📁'}</span>
+          <span class="ph-label">${esc(p.subtitle)}</span>
+        </div>
+      </div>
+      <div class="proj-feat-body">
+        <div class="proj-feat-top">
+          <div class="proj-tags-row">${renderTags(p.tags)}</div>
+          <span class="proj-ext-icon">↗</span>
+        </div>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.description)}</p>
+        <div class="proj-link-row">
+          ${p.github ? `<a href="${esc(p.github)}" target="_blank" class="proj-gh-link" onclick="event.stopPropagation()">GitHub →</a>` : ''}
+          ${p.live ? `<a href="${esc(p.live)}"   target="_blank" class="proj-gh-link" onclick="event.stopPropagation()">Live →</a>` : ''}
+        </div>
+      </div>
+    </div>`
+    ).join('');
+}
+
+function renderSmall(projects) {
+    const small = projects.filter(p => !p.featured);
+    document.getElementById('small-grid').innerHTML = small.map(p => `
+    <div class="proj-sm reveal" data-id="${esc(p.id)}" data-cat="${esc(p.category)}">
+      <div class="proj-sm-img">
+        ${imgEl(p)}
+        <div class="proj-img-placeholder">
+          <span class="ph-icon">${CAT_ICONS[p.category] || '📁'}</span>
+        </div>
+      </div>
+      <div class="proj-sm-body">
+        <div class="psm-top">
+          <div class="psm-tags">${renderTags(p.tags)}</div>
+          <span class="psm-arrow">↗</span>
+        </div>
+        <h4>${esc(p.title)}</h4>
+        <p>${esc(p.description)}</p>
+      </div>
+    </div>`
+    ).join('');
+}
+
+function renderFilters(projects) {
+    const cats = ['all', ...new Set(projects.map(p => p.category))];
+    document.getElementById('proj-filters').innerHTML = cats.map(c => `
+    <button class="filter-btn ${c === 'all' ? 'active' : ''}" data-filter="${c}">
+      ${c === 'all' ? 'All' : (CAT_LABELS[c] || c)}
+    </button>`
+    ).join('');
+}
+
+function applyFilter(cat) {
+    document.querySelectorAll('[data-cat]').forEach(el => {
+        const matches = cat === 'all' || el.dataset.cat === cat;
+        el.classList.toggle('hidden', !matches);
+    });
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === cat);
+    });
+}
+
+function renderStack(stack) {
+    document.getElementById('stack-grid').innerHTML = stack.map(s => `
+    <div class="stack-col reveal">
+      <h4><span>${s.icon}</span> ${esc(s.category)}</h4>
+      <ul>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+    </div>`
+    ).join('');
+}
+
+function renderAchievements(ach) {
+    document.getElementById('ach-row').innerHTML = ach.map(a => `
+    <div class="ach-item reveal">
+      <span class="ach-em">${a.emoji}</span>
+      <div>
+        <strong>${esc(a.title)}</strong>
+        <p>${esc(a.detail)}</p>
+      </div>
+    </div>`
+    ).join('');
+}
+
+function renderContact(p) {
+    const links = [
+        { icon: '✉', label: 'Email', href: `mailto:${p.email}`, val: p.email },
+        { icon: '☎', label: 'Phone', href: `tel:${p.phone}`, val: p.phone },
+        { icon: 'in', label: 'LinkedIn', href: p.linkedin, val: 'siddheshjadhavdeepak', target: '_blank' },
+        { icon: 'gh', label: 'GitHub', href: p.github, val: 'sidd-j', target: '_blank' },
+    ];
+    document.getElementById('contact-links').innerHTML = links.map(l => `
+    <a class="cl-item" href="${esc(l.href)}" ${l.target ? `target="${l.target}"` : ''}>
+      <span class="cl-icon">${l.icon}</span>
+      <span class="cl-val">${esc(l.val)}</span>
+    </a>`
+    ).join('');
+}
+
+function renderFooter(p) {
+    document.getElementById('footer-copy').textContent = `Built by ${p.name} · © 2025`;
+    document.getElementById('footer-links').innerHTML = `
+    <a href="${esc(p.github)}"   target="_blank">GitHub</a>
+    <a href="${esc(p.linkedin)}" target="_blank">LinkedIn</a>
+    <a href="mailto:${esc(p.email)}">Email</a>`;
+    document.getElementById('all-gh').href = p.github;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+const modalBg = document.getElementById('modal-bg');
+const modalClose = document.getElementById('modal-close');
+
+function openModal(proj) {
+    const placeholder = makePlaceholderSVG(proj.title, proj.color || '#1c1c21');
+    document.getElementById('modal-img').src = proj.image;
+    document.getElementById('modal-img').alt = proj.title;
+    document.getElementById('modal-img').onerror = function () {
+        this.onerror = null; this.src = placeholder;
     };
+    document.getElementById('modal-tags').innerHTML = renderTags(proj.tags, '');
+    document.getElementById('modal-title').textContent = proj.title;
+    document.getElementById('modal-subtitle').textContent = proj.subtitle;
+    document.getElementById('modal-desc').textContent = proj.description;
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+    const btns = [];
+    if (proj.github) btns.push(`<a href="${esc(proj.github)}" target="_blank" class="btn-primary">View on GitHub</a>`);
+    if (proj.live) btns.push(`<a href="${esc(proj.live)}"   target="_blank" class="btn-ghost">Live Demo ↗</a>`);
+    document.getElementById('modal-btns').innerHTML = btns.join('');
 
-                // Trigger skill bar animations when skills section is visible
-                if (entry.target.closest('#about')) {
-                    setTimeout(animateSkillBars, 500);
-                }
-            }
-        });
-    }, observerOptions);
+    modalBg.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
 
-    // Observe all fade-in elements
-    document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
+function closeModal() {
+    modalBg.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* =====================================================
+   NAV / UX
+===================================================== */
+const hdr = document.getElementById('hdr');
+const burger = document.getElementById('burger');
+const mobNav = document.getElementById('mob-nav');
+
+window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 30), { passive: true });
+
+burger.addEventListener('click', () => {
+    const open = mobNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+});
+mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = '';
+}));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return; e.preventDefault();
+    window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - hdr.offsetHeight, behavior: 'smooth' });
+}));
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const delay = Number(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        io.unobserve(entry.target);
     });
+}, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+
+function observeReveal() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach((el, i) => io.observe(el));
 }
 
-// Form Submission Handler
-function setupContactForm() {
-    const contactForm = document.querySelector('.contact-form');
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Get form data
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        // Simple validation
-        if (!name || !email || !message) {
-            alert('Please fill in all fields.');
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-
-        // Simulate form submission
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-
-        submitButton.textContent = 'Sending...';
-        submitButton.disabled = true;
-
-        setTimeout(() => {
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            contactForm.reset();
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
-    });
-}
-
-// Email validation helper
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Navigation scroll spy
-function setupScrollSpy() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
-            if (window.scrollY >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === current) {
-                link.classList.add('active');
-            }
-        });
-    });
-}
-
-// Initialize Application
-function initializeApp() {
-    // Initialize DOM elements
-    initializeElements();
-
-    // Start typing animation
-    if (typingText) {
-        new TypeWriter(typingText, [
-            portfolioData.developer.name,
-            'Game Developer',
-            'Unity Expert',
-            'Game Designer',
-            'App Developer'
-        ], 2000);
-    }
-
-    // Create particle effects
-    createParticles();
-
-    // Setup mobile menu - Fixed event listener
-    if (mobileMenu) {
-        mobileMenu.addEventListener('click', toggleMobileMenu);
-    }
-
-    // Setup smooth scrolling
-    setupSmoothScrolling();
-
-    // Setup navbar scroll effect
-    window.addEventListener('scroll', handleNavbarScroll);
-
-    // Setup scroll spy
-    setupScrollSpy();
-
-    // Populate sections
-    populateAboutSection();
-    populateSkillsSection();
-    populateProjectsSection();
-    populateSocialLinks();
-
-    // Setup scroll animations
-    setTimeout(setupScrollAnimations, 100);
-
-    // Setup contact form
-    setupContactForm();
-
-    // Add initial animations
+/* =====================================================
+   CONTACT FORM
+===================================================== */
+const form = document.getElementById('contact-form');
+const sbtn = document.getElementById('sbtn');
+form && form.addEventListener('submit', e => {
+    e.preventDefault();
+    const orig = sbtn.textContent;
+    sbtn.textContent = 'Sending…'; sbtn.disabled = true;
     setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach((el, index) => {
-            setTimeout(() => {
-                el.classList.add('visible');
-            }, index * 100);
-        });
-    }, 500);
-}
-
-// Handle window resize
-function handleWindowResize() {
-    if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('active')) {
-        toggleMobileMenu();
-    }
-}
-
-// Add some extra cosmic effects
-function addCosmicEffects() {
-    // Add random twinkling to existing elements
-    setInterval(() => {
-        const glowElements = document.querySelectorAll('.project-card, .skill-item, .social-link');
-        if (glowElements.length > 0) {
-            const randomElement = glowElements[Math.floor(Math.random() * glowElements.length)];
-            const originalBoxShadow = window.getComputedStyle(randomElement).boxShadow;
-
-            randomElement.style.boxShadow = '0 0 20px rgba(0, 217, 255, 0.5)';
-
-            setTimeout(() => {
-                randomElement.style.boxShadow = originalBoxShadow;
-            }, 1000);
-        }
-    }, 5000);
-}
-
-// Enhanced error handling
-function setupErrorHandling() {
-    window.addEventListener('error', function (e) {
-        console.error('Application error:', e.error);
-    });
-
-    // Check if all required elements are present
-    const requiredElements = ['navbar', 'nav-menu', 'mobile-menu', 'typing-text', 'projects-grid'];
-    let missingElements = [];
-
-    requiredElements.forEach(id => {
-        if (!document.getElementById(id)) {
-            missingElements.push(id);
-        }
-    });
-
-    if (missingElements.length > 0) {
-        console.warn('Missing elements:', missingElements);
-    }
-}
-
-// Start the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    setupErrorHandling();
-    initializeApp();
+        sbtn.textContent = '✓ Sent!';
+        sbtn.style.background = '#16a34a'; sbtn.style.borderColor = '#16a34a';
+        setTimeout(() => {
+            sbtn.textContent = orig; sbtn.disabled = false;
+            sbtn.style.background = ''; sbtn.style.borderColor = '';
+            form.reset();
+        }, 3000);
+    }, 900);
 });
 
-// Handle window events
-window.addEventListener('resize', handleWindowResize);
+/* =====================================================
+   MAIN — FETCH & RENDER
+===================================================== */
+async function init() {
+    let data;
+    try {
+        const res = await fetch('data.json');
+        if (!res.ok) throw new Error('fetch failed');
+        data = await res.json();
+    } catch {
+        console.error('Could not load data.json');
+        document.getElementById('hero-h1').textContent = 'Siddhesh Jadhav';
+        return;
+    }
 
-// Initialize cosmic effects after page load
-window.addEventListener('load', function () {
-    setTimeout(addCosmicEffects, 2000);
-});
+    const { personal: p, stats, experience, projects, stack, achievements } = data;
+
+    // Render everything
+    renderNav(p);
+    renderHero(p);
+    renderCodeCard(p);
+    renderStats(stats);
+    renderMarquee(stack);
+    renderAbout(p);
+    renderExperience(experience);
+    renderFilters(projects);
+    renderProjects(projects);
+    renderStack(stack);
+    renderAchievements(achievements);
+    renderContact(p);
+    renderFooter(p);
+
+    // Wire up filter buttons
+    document.getElementById('proj-filters').addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (btn) { applyFilter(btn.dataset.filter); observeReveal(); }
+    });
+
+    // Wire up project card clicks → modal
+    document.getElementById('featured-row').addEventListener('click', e => {
+        const card = e.target.closest('.proj-feat');
+        if (!card || e.target.closest('a')) return;
+        const proj = projects.find(p => p.id === card.dataset.id);
+        if (proj) openModal(proj);
+    });
+    document.getElementById('small-grid').addEventListener('click', e => {
+        const card = e.target.closest('.proj-sm');
+        if (!card) return;
+        const proj = projects.find(p => p.id === card.dataset.id);
+        if (proj) openModal(proj);
+    });
+
+    // Stagger project cards
+    document.querySelectorAll('.proj-feat.reveal').forEach((el, i) => { el.dataset.delay = i * 80; });
+    document.querySelectorAll('.proj-sm.reveal').forEach((el, i) => { el.dataset.delay = i * 60; });
+
+    // Start revealing
+    observeReveal();
+}
+
+init();
